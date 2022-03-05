@@ -9,7 +9,7 @@ send_notification() {
     HEAD=$(cal "$1" | head -n1)
     BODY=$(cal "$1" | tail -n7 | sed -z "s|$TODAY|<u><b>$TODAY</b></u>|1")
     FOOT="<i>       ~ calendar</i> "
-    dunstify -h string:x-canonical-private-synchronous:calendar \
+    notify-send -h string:x-canonical-private-synchronous:calendar \
         "$HEAD" "$BODY\n$FOOT" -u NORMAL
 }
 
