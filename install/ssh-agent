@@ -19,8 +19,8 @@ ENDDATA
 
 DEST="$HOME/.config/systemd/user/ssh-agent.service"
 
-mkdir -p $(dirname "$DEST") > /dev/null 2>&1
-echo -e "${DATA}" > $DEST
+mkdir -p "$(dirname "$DEST")" > /dev/null 2>&1
+echo  -e "${DATA}" > $DEST
 
 systemctl --user daemon-reload
 systemctl --user enable ssh-agent

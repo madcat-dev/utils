@@ -1,33 +1,37 @@
 #!/bin/sh
 
-echo -e "- Remove previous configuration..."
+CONF="$(dirname "${0/\~/$HOME}")/share"
+
+echo -e "Remove previous configuration..."
 rm -rf $HOME/.vim/ > /dev/null 2>&1
 
-echo -e "- Install packages"
+echo -e "Install packages"
 sudo pacman -S gvim --needed
 
 
-echo -e "- Install Vundle plugin manager from git..."
-mkdir -p $HOME/.vim/bundle/
-git clone https://github.com/VundleVim/Vundle.vim.git \
-    $HOME/.vim/bundle/Vundle.vim
+echo -e "Copy config files..."
 
-
-echo -e "- Copy config files..."
-CONF="$(dirname "${0/\~/$HOME}")/../configs"
-
-if cp -xarf "$CONF/.vimrc" "$HOME/"; then
-    echo -e "- OK"
+if cp -xarf "$CONF/vimrc" "$HOME/.vimrc"; then
+    echo -e "OK"
 else
-    echo -e "\033[31m- File '.vimrc' is not copyed!!!\033[0m"
+    echo -e "\033[31mFile '.vimrc' is not copyed!!!\033[0m"
     exit 1
 fi
 
-echo -e "- Install vim plugins..."
+
+echo  -e "Install Vundle plugin manager from git..."
+mkdir -p $HOME/.vim/bundle/
+
+git clone \
+    https://github.com/VundleVim/Vundle.vim.git \
+    $HOME/.vim/bundle/Vundle.vim
+
+
+echo -e "Install vim plugins..."
 vim --not-a-term +PluginInstall +qall
 
 if [[ -e "$HOME/.vim/bundle/vim-go" ]]; then
-    echo -en "- Install go-vim plugin binary files? [y/N]:"
+    echo -en "Install go-vim plugin binary files? [y/N]:"
     read select
 
     if [[ "Y|y" == *"${select:-N}"* ]]; then

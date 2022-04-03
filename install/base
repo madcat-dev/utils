@@ -4,8 +4,8 @@
 [[ "${0}" != "${BASH_SOURCE}" ]] && \
     BASE_IS_LIB=true || BASE_IS_LIB=
 
-FORCE="--needed"
-_ALL=Yes
+NOFORCE="--needed"
+_ALL=True
 
 
 isinstalled() {
@@ -38,7 +38,7 @@ install() {
         ISAUR=true; shift
     fi
 
-    if [[ "$FORCE" ]]; then
+    if [[ "$NOFORCE" ]]; then
         for i in ${@}; do
             isinstalled "$i" || LIST="$LIST $i"
         done
@@ -53,9 +53,11 @@ install() {
     read select
 
     if [[ "Y|y" == *"${select:-Y}"* ]]; then
-        [[ "$ISAUR" ]] \
-            && pamac install $LIST \
-            || sudo pacman -S $LIST $FORCE
+        if [[ "$ISAUR" ]]; then
+            pamac install $LIST
+        else
+            sudo pacman -S $LIST $NOFORCE
+        fi
     fi
 }
 
@@ -155,11 +157,11 @@ MAIN=(
                             # (python library)
 
     # WM & dependencies
+    "bspwm"                 # Tiling window manager based on binary space partitioning
     "picom"                 # X compositor that may fix tearing issues
     "sxhkd"                 # Simple X hotkey daemon
     "rofi"                  # A window switcher, run dialog and dmenu replacement
     "polybar"               # A fast and easy-to-use status bar
-    "bspwm"                 # Tiling window manager based on binary space partitioning
     "dunst"                 # Customizable and lightweight notification-daemon
     "conky"                 # An advanced system monitor for X based on torsmo 
 )
@@ -194,7 +196,7 @@ BASE="$(dirname "${BASH_SOURCE:-$0}")"
 while [ -n "$1" ]; do
     case "${1}" in
     --force)
-        FORCE=
+        NOFORCE=
         ;;
     --remove)
         _ALL=
@@ -233,7 +235,7 @@ if [[ "$_ALL" || "$_BASE" ]]; then
     read select
 
     [[ "Y|y" == *"${select:-N}"* ]] \
-        && sudo pacman -S base-devel $FORCE
+        && sudo pacman -S base-devel $NOFORCE
 fi
 
 

@@ -4,28 +4,10 @@
 # https://wiki.archlinux.org/title/Network_configuration_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)/Wireless_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)#rtl88xxau
 #
 
-_headers=(
-    $(pacman -Qsq "^linux" | grep "^linux[0-9]*[-rt]*$" | awk '{print $1"-headers"}' ORS=' ')
-)
+BASE="$(dirname "${0/\~/$HOME}")"
 
-[[ ${#_headers[@]} -eq 0 ]] && \
-    echo -e "\033[31mHeaders information not found!\033[0m" && \
-    exit 1
-
-echo -e "\033[33mInstalling the required linux headers: ${_headers[@]}\033[0m"
-
-headers=()
-
-for h in ${_headers[@]}; do
-    [[ ! $(pacman -Ss $h) ]] && \
-        echo -en "\033[31mPackage $h not found\033[0m" && \
-        echo -e  "\033[31m, maybe you need to remove the kernel\033[0m" && \
-        exit 1
-
-    headers+=( $h )
-done
-
-sudo pacman -S ${headers[@]} --needed
+# install requered linux headers
+$BASE/kernel-headers
 
 echo -e "$(printf '─%.0s' {1..72})"
 echo -e "\033[33mInstall pamac-cli along with the required driver dependencies\033[0m"
@@ -46,7 +28,6 @@ sudo rfkill unblock all
 
 echo -e "$(printf '─%.0s' {1..72})"
 echo -e "\033[32mLED control:
-
 statically by module parameter in /etc/modprobe.d/88XXau.conf or wherever,
 for example:
     options 88XXau rtw_led_ctrl=0
