@@ -194,6 +194,9 @@ for f in *.list; do
     done < "$f"
 done
 
+[[ -e ".git" && ! "${DRY_RUN}" ]] \
+    && echo "" \
+    && git status
 
 DIFF=$((`date '+%s'` - $DIFF))
 echo -e "\033[32m-- ${MODE:-Backup} completed with $(displaytime $DIFF) --\033[0m"
