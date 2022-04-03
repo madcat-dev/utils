@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# 
+
+PKG=(
+    xl2tpd
+    strongswan
+    networkmanager-strongswan
+    networkmanager-l2tp
+)
+
+echo -e "\033[33mInstall l2tp/ipsec packages: ${PKG[@]}\033[0m"
+
+sudo pacman -S ${PKG[@]} --needed
+
+echo -e "\033[33mRestart NetworkManager...\033[0m"
+
+sudo systemctl restart NetworkManager

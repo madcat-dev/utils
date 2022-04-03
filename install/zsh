@@ -1,0 +1,15 @@
+#!/bin/sh
+
+echo -e "- Install packages"
+sudo pacman -S zsh --needed
+
+echo -e "- Copy config files..."
+CONF="$(dirname "${0/\~/$HOME}")/../configs"
+cp -xarf "$CONF/.zshrc" "$HOME/.zshrc"
+
+
+if [[ "${SHELL}" != */zsh ]]; then
+    echo -e "- Change shell to '/bin/zsh'"
+    chsh -s /bin/zsh && \
+        echo -e "\033[32m  completed\033[0m"
+fi

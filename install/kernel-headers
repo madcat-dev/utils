@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# 
+
+_headers=(
+    $(pacman -Qsq "^linux" | grep "^linux[0-9]*[-rt]*$" | awk '{print $1"-headers"}' ORS=' ')
+)
+
+[[ ${#_headers[@]} -eq 0 ]] && \
+    echo -e "\033[31mHeaders information not found!\033[0m" && \
+    exit 1
+
+echo -e "\033[33mInstall required linux headers: ${_headers[@]}\033[0m"
+
+headers=()
+
+for h in ${_headers[@]}; do
+    [[ ! $(pacman -Ss $h) ]] && \
+        echo -en "\033[31mPackage $h not found\033[0m" && \
+        echo -e  "\033[31m, maybe you need to remove the kernel\033[0m" && \
+        exit 1
+
+    headers+=( $h )
+done
+
+sudo pacman -S ${headers[@]} --needed
+
