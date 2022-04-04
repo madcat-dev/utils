@@ -30,9 +30,27 @@ function displaytime {
     printf 'ago'
 }
 
+function show_group() {
+    local tname="/tmp/bk.$$"
+    local fg="$(cat $tname 2>/dev/null)"
+
+    if [[ "${fg}" != "${FGROUP}" ]]; then
+        echo "${FGROUP}" > "$tname"
+        echo -e "[${FGROUP}]"
+    fi
+}
 
 function info() {
-    [[ ${VERBOSE} ]] && echo -e "${@}"
+    if [[ ${VERBOSE} ]]; then
+        show_group
+        echo -e "${@}"
+    fi
+    return 0
+}
+
+function warn() {
+    show_group
+    echo -e "${@}"
     return 0
 }
 
@@ -43,7 +61,7 @@ function rcopy() {
     local md5src md5dst
 
     if [[ ! -e "$SRC" ]]; then
-        echo -e "    - path \033[31m${SRC/$HOME/\~}\033[0m not exists"
+        warn "    - path \033[31m${SRC/$HOME/\~}\033[0m not exists"
         return 0
     fi
 
@@ -69,9 +87,9 @@ function rcopy() {
         if [[ ! ${DRY_RUN} ]]; then
             mkdir -p "$(dirname "$DST")" > /dev/null 2>&1
 
-            cp -xarf "$SRC" "$DST" && \
-                echo -e "    + file \033[32m${SRC/$HOME/\~}\033[0m is copied" || \
-                echo -e "    - file \033[31m${SRC/$HOME/\~}\033[0m is not copied!"
+            cp -xarf "$SRC" "$DST" \
+                && warn "    + file \033[32m${SRC/$HOME/\~}\033[0m is copied" \
+                || warn "    - file \033[31m${SRC/$HOME/\~}\033[0m is not copied!"
         fi
     else
         info "    - path \033[34m${SRC/$HOME/\~}\033[0m not modified"
@@ -97,19 +115,21 @@ function rdconf() {
         if [[ ! ${DRY_RUN} ]]; then
             if [[ ${RESTOTE} ]]; then
                 dconf load "/${base//./\/}/" < "$path" \
-                    && echo -e "    + dconf \033[32m${base}\033[0m is loaded" \
-                    || echo -e "    - dconf \033[31m${base}\033[0m is not loaded!"
+                    && warn "    + dconf \033[32m${base}\033[0m is loaded" \
+                    || warn "    - dconf \033[31m${base}\033[0m is not loaded!"
             else
                 mkdir -p "$(dirname "$path")" > /dev/null 2>&1
 
                 cp -xarf "/tmp/$base" "$path" \
-                    && echo -e "    + dconf \033[32m${base}\033[0m is dumped" \
-                    || echo -e "    - dconf \033[31m${base}\033[0m is not dumped!"
+                    && warn "    + dconf \033[32m${base}\033[0m is dumped" \
+                    || warn "    - dconf \033[31m${base}\033[0m is not dumped!"
             fi
         fi
     else
         info "    - dconf \033[34m${base}\033[0m not modified"
     fi
+
+    rm -f "/tmp/$base" 2>/dev/null
 }
 
 
@@ -151,10 +171,10 @@ done
 
 echo -e "\033[33m-- ${MODE:-Backup} started --\033[0m"
 
-prev_group=
 
 for f in *.list; do
-    info "$f"
+    echo -e "** $f"
+    STORAGE="${f%%.*}"
 
     while IFS= read -r line; do
         line="$(echo "$line" | sed -e 's/^[[:space:]]*//')"
@@ -164,26 +184,21 @@ for f in *.list; do
 
         if [[ "${line:0:1}" == "[" ]]; then
             size=$(( ${#line} - 2 ))
-            group="${line:1:$size}"
+            FGROUP="${line:1:$size}"
             continue
         fi
 
         if [[ ${#BACKUP_GROUPS[@]} -gt 0 ]]; then
-            [[ ${BACKUP_GROUPS["$group"]} ]] 2>/dev/null || continue
+            [[ ${BACKUP_GROUPS["${FGROUP}"]} ]] 2>/dev/null || continue
         fi
 
-        if [[ "$prev_group" != "$group" ]]; then
-            prev_group="$group"
-            info "[$group]"
-        fi
-
-        if [[ "$group" == "dconf" ]]; then
-            rdconf ".dconf/$line"
+        if [[ "${FGROUP}" == "dconf" ]]; then
+            rdconf "${STORAGE:-data}/.dconf/$line"
             continue
         fi
 
-        point="${line/\~/.}"
-        point="${point/$HOME/.}"
+        point="${line/\~/${STORAGE:-data}}"
+        point="${point/$HOME/${STORAGE:-data}}"
 
         if [[ ${RESTOTE} ]]; then
             rcopy "$point" "$line"
@@ -194,9 +209,11 @@ for f in *.list; do
     done < "$f"
 done
 
+
 [[ -e ".git" && ! "${DRY_RUN}" ]] \
     && echo "" \
     && git status
+
 
 DIFF=$((`date '+%s'` - $DIFF))
 echo -e "\033[32m-- ${MODE:-Backup} completed with $(displaytime $DIFF) --\033[0m"
