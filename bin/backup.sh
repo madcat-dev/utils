@@ -2,8 +2,9 @@
 
 DIFF=$(date '+%s')
 declare -A BACKUP_GROUPS
-FILES=()
+FILE_PACK=()
 
+TNAME="$(mktemp /tmp/bk.XXXXXXXXXX)"
 
 function displaytime {
     local T=$1
@@ -31,11 +32,10 @@ function displaytime {
 }
 
 function show_group() {
-    local tname="/tmp/bk.$$"
-    local fg="$(cat $tname 2>/dev/null)"
+    local fg="$(cat $TNAME 2>/dev/null)"
 
     if [[ "${fg}" != "${FGROUP}" ]]; then
-        echo "${FGROUP}" > "$tname"
+        echo "${FGROUP}" > "$TNAME"
         echo -e "[${FGROUP}]"
     fi
 }
@@ -153,6 +153,14 @@ while [ -n "$1" ]; do
     --force|-f)
         FORCE=true
         ;;
+    --dir)
+        STORAGE_DIR="${2}"
+        shift
+        ;;
+    --file)
+        FILE_PACK+=( "${2}" )
+        shift
+        ;;
     --help)
         exit 0
         ;;
@@ -171,10 +179,16 @@ done
 
 echo -e "\033[33m-- ${MODE:-Backup} started --\033[0m"
 
+if [[ ${#FILE_PACK[@]} -eq 0 ]]; then
+    FILE_PACK=( $(ls *.list) )
+fi
 
-for f in *.list; do
-    echo -e "** $f"
-    STORAGE="${f%%.*}"
+
+for f in ${FILE_PACK[@]}; do
+    STORAGE="$(basename "$f")"
+    STORAGE="${STORAGE_DIR:-.}/${STORAGE%%.*}"
+
+    echo -e "** $f - $STORAGE **"
 
     while IFS= read -r line; do
         line="$(echo "$line" | sed -e 's/^[[:space:]]*//')"
@@ -213,6 +227,8 @@ done
 [[ -e ".git" && ! "${DRY_RUN}" ]] \
     && echo "" \
     && git status
+
+rm -f "$TNAME" 2>/dev/null
 
 
 DIFF=$((`date '+%s'` - $DIFF))
