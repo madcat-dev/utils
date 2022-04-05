@@ -189,9 +189,8 @@ for f in ${FILE_PACK[@]}; do
     STORAGE="${STORAGE_DIR:-.}/${STORAGE%%.*}"
     FGROUP=""
 
-    echo "**"
+    echo ""
     echo -e "\033[34m** $f - $STORAGE **\033[0m"
-    echo "**"
 
     while IFS= read -r line; do
         line="$(echo "$line" | sed -e 's/^[[:space:]]*//')"
