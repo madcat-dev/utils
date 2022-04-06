@@ -142,6 +142,8 @@ MAIN=(
     "curl"
     "w3m"
     "httpie"                # cURL for humans
+    "websocat"              # Command-line client for web sockets, like 
+                            # netcat/curl/socat for ws://
     "net-tools"             # Configuration tools for Linux networking
     "sshfs"
 
