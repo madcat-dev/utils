@@ -24,8 +24,8 @@ send_notification() {
     fi
 
     [[ $volume -gt 30 ]] && level=NORMAL   && icon=
-    [[ $volume -ge 50 ]] && level=LOW      && icon=
-    [[ $volume -ge 70 ]] && level=CRITICAL && icon= 
+    [[ $volume -gt 50 ]] && level=LOW      && icon=
+    [[ $volume -gt 75 ]] && level=CRITICAL && icon= 
 
     notify-send -u $level \
         -h string:x-canonical-private-synchronous:$APPNAME \
