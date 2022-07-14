@@ -51,18 +51,18 @@ volume=$(get_volume)
 case "${1}" in
     up)
         if [[ $volume != "muted" ]] ; then
-            amixer -q set Master 5%+
+            amixer -q set $CANNEL 5%+
             send_notification
         fi
         ;;
     down)
         if [[ $volume != "muted" ]] ; then
-            amixer -q set Master 5%-
+            amixer -q set $CANNEL 5%-
             send_notification
         fi
         ;;
     toggle)
-        amixer -q set Master toggle
+        amixer -q set $CANNEL toggle
         send_notification
         ;;
     *)
