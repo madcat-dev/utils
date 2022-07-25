@@ -92,22 +92,21 @@ MAIN=(
     # Themes & utils
     "qt5ct"                 # Qt5 Configuration Utility
     "qt6ct"                 # Qt 6 Configuration Utility
-    "gtk-engine-murrine"    # GTK2 engine to make your desktop look like a 
-                            # 'murrina', an italian word meaning the art glass 
-                            # works done by Venicians glass blowers
 
     # Utils
     "xorg-xrandr"
     "xorg-xev"
-    "xautomation"
-    "xdotool"
+    "xorg-xinput"
     "xorg-xprop"            # Property displayer for X
     "xorg-xwininfo"         # Command-line utility to print information about windows on an X server
-    "xdg-desktop-portal"    # Desktop integration portals for sandboxed apps
-    "xdg-desktop-portal-gtk"
+
+    "xautomation"
+    "xdotool"
     "xclip"                 # Command line interface to the X11 clipboard
     "xsettingsd"            # Provides settings to X11 applications via the
                             # XSETTINGS specification
+    "xdg-desktop-portal"    # Desktop integration portals for sandboxed apps
+    "xdg-desktop-portal-gtk"
 
     "numlockx"              # Turns on the numlock key in X11
     "exfat-utils"
@@ -176,10 +175,6 @@ AUR=(
     # Fonts
     "ttf-iosevka-fixed-curly"
     "ttf-symbola"
-
-    # WM & dependencies
-    "picom-ibhagwan-git"    # iBhagwan's compton|picom fork (X compositor) with 
-                            # dual_kawase blur and rounded corners
 
     # Extra
     "g810-led-git"          # Linux led controller for Logitech G213, G410,
