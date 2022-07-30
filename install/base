@@ -90,6 +90,7 @@ MAIN=(
     # Icons-themes
 
     # Themes & utils
+    "gtk-engine-murrine"    # GTK2 engine to make your desktop look like a 'murrina'
     "qt5ct"                 # Qt5 Configuration Utility
     "qt6ct"                 # Qt 6 Configuration Utility
 
@@ -105,6 +106,7 @@ MAIN=(
     "xclip"                 # Command line interface to the X11 clipboard
     "xsettingsd"            # Provides settings to X11 applications via the
                             # XSETTINGS specification
+
     "xdg-desktop-portal"    # Desktop integration portals for sandboxed apps
     "xdg-desktop-portal-gtk"
 
