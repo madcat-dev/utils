@@ -106,6 +106,7 @@ MAIN=(
     "xclip"                 # Command line interface to the X11 clipboard
     "xsettingsd"            # Provides settings to X11 applications via the
                             # XSETTINGS specification
+    "brightnessctl"         # Lightweight brightness control tool
 
     "xdg-desktop-portal"    # Desktop integration portals for sandboxed apps
     "xdg-desktop-portal-gtk"
@@ -147,6 +148,7 @@ MAIN=(
                             # netcat/curl/socat for ws://
     "net-tools"             # Configuration tools for Linux networking
     "sshfs"
+    "dnsutils"              # A complete, highly portable implementation of the DNS protocol
 
     "firefox"
     "telegram-desktop"
