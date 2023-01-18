@@ -23,7 +23,7 @@ if ! which xfce4-screenshooter > /dev/null; then
     exit 1
 fi
 
-SAVE_PATH="$(xdg-user-dir DESKTOP)/$(date +'%Y-%m-%d').$(printf "%05x" `date +%H%M%S`).png"
+SAVE_PATH="$(xdg-user-dir DESKTOP)/$(date +'%Y-%m-%d').$(date +%H%M%S).png"
 
 case "${1}" in
     -f|full)
