@@ -41,6 +41,6 @@ case $1 in
         handle_action
         ;;
     *)
-        date +'%d.%m %H:%M'
+        date +'%d.%b %H:%M'
         ;;
 esac
