@@ -85,7 +85,7 @@ MAIN=(
     # Fonts
     "terminus-font"
     "ttf-font-awesome"
-    "ttf-polybar-icons"
+    #"ttf-polybar-icons"
 
     # Icons-themes
 
@@ -112,7 +112,7 @@ MAIN=(
     "xdg-desktop-portal-gtk"
 
     "numlockx"              # Turns on the numlock key in X11
-    "exfat-utils"
+    #"exfat-utils"
     "htop"
     "gtop"
     "powertop"
@@ -152,7 +152,7 @@ MAIN=(
 
     "firefox"
     "telegram-desktop"
-    "transmission-gtk"
+    #"transmission-gtk"
 
     # Media
     "mpv"                   # Cross-platform media player
@@ -168,7 +168,7 @@ MAIN=(
     "rofi"                  # A window switcher, run dialog and dmenu replacement
     "polybar"               # A fast and easy-to-use status bar
     "dunst"                 # Customizable and lightweight notification-daemon
-    "conky"                 # An advanced system monitor for X based on torsmo 
+    #"conky"                 # An advanced system monitor for X based on torsmo 
 )
 
 AUR=(
@@ -181,7 +181,7 @@ AUR=(
     "ttf-symbola"
 
     # Extra
-    "g810-led-git"          # Linux led controller for Logitech G213, G410,
+    #"g810-led-git"          # Linux led controller for Logitech G213, G410,
                             # G413, G512, G513, G610, G810, G815, G910 and 
                             # GPRO Keyboards
 )
