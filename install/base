@@ -85,7 +85,6 @@ MAIN=(
     # Fonts
     "terminus-font"
     "ttf-font-awesome"
-    #"ttf-polybar-icons"
 
     # Icons-themes
 
@@ -112,7 +111,6 @@ MAIN=(
     "xdg-desktop-portal-gtk"
 
     "numlockx"              # Turns on the numlock key in X11
-    #"exfat-utils"
     "htop"
     "gtop"
     "powertop"
@@ -152,7 +150,7 @@ MAIN=(
 
     "firefox"
     "telegram-desktop"
-    #"transmission-gtk"
+    "transmission-gtk"
 
     # Media
     "mpv"                   # Cross-platform media player
