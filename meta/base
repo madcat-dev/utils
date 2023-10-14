@@ -61,6 +61,7 @@ REMOVE=(
     "gnome-keyring"         # Stores passwords and encryption keys
     "seahorse"              # GNOME application for managing PGP keys.
     "evince"                # Document viewer 
+    "mousepad"              # Simple text editor for Xfce
 )
 
 LIST=(
@@ -106,9 +107,7 @@ LIST=(
 
     "trash-cli"             # Command line trashcan (recycle bin) interface
     "imagemagick"           # An image viewing/manipulation program
-    "mousepad"              # Simple text editor for Xfce
     "gparted"               # A Partition Magic clone, frontend to GNU Parted
-    "zathura"               # Minimalistic document viewer
 
     # Network
     "wget"
@@ -150,13 +149,15 @@ AUR=(
     "ttf-symbola"
 )
 
-
 echo -en "Remove preinstalled packages? [y/N] "
 read select
-[[ "Y|y" == *"${select:-N}"* ]] \
-    && sudo pacman --remove ${REMOVE[*]}
+if [[ "Y|y" == *"${select:-N}"* ]]; then
+    for pkg in ${REMOVE[*]}; do
+        sudo pacman -R $pkg
+    done
+fi
 
-echo -en "Install base development meta-package? [y/N] "
+echo -en "Install base development meta-package? [Y/n] "
 read select
 [[ "Y|y" == *"${select:-N}"* ]] \
     && sudo pacman -S base-devel
