@@ -1,0 +1,28 @@
+#!/bin/sh
+
+DATA=$(cat <<- ENDDATA
+[Unit]
+Description=SSH key agent
+
+[Service]
+Type=simple
+Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+# DISPLAY required for ssh-askpass to work
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/ssh-agent -D -a \$SSH_AUTH_SOCK
+
+[Install]
+WantedBy=default.target
+ENDDATA
+)
+
+
+DEST="$HOME/.config/systemd/user/ssh-agent.service"
+
+mkdir -p "$(dirname "$DEST")" > /dev/null 2>&1
+echo  -e "${DATA}" > "$DEST"
+
+systemctl --user daemon-reload
+systemctl --user enable  ssh-agent
+systemctl --user restart ssh-agent
+systemctl --user status  ssh-agent

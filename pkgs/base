@@ -1,0 +1,173 @@
+#!/bin/sh
+
+isinstalled() {
+    [[ $(ls /var/lib/pacman/local | grep -E "^${1}-[0-9]+.*$") ]] \
+        && return 0
+    return 1
+}
+
+remove() {
+    local LIST
+
+    for i in ${@}; do
+        isinstalled "$i" && LIST="$LIST $i"
+    done
+
+    [[ ! "$LIST" ]] && return
+
+    echo -e "$LIST"
+    echo -n "Remove? [Y/n] "
+    read select
+
+    [[ "Y|y" == *"${select:-Y}"* ]] \
+        && sudo pacman --remove $LIST
+}
+
+install() {
+    local ISAUR LIST
+
+    if [[ "$1" == "--aur" ]]; then
+        ISAUR=true; shift
+    fi
+
+    if [[ "$NOFORCE" ]]; then
+        for i in ${@}; do
+            isinstalled "$i" || LIST="$LIST $i"
+        done
+    else
+        LIST="${@}"
+    fi
+
+    [[ ! "$LIST" ]] && return
+
+    echo -e "$LIST"
+    echo -n "Install? [Y/n] "
+    read select
+
+    if [[ "Y|y" == *"${select:-Y}"* ]]; then
+        if [[ "$ISAUR" ]]; then
+            pamac install $LIST
+        else
+            sudo pacman -S $LIST $NOFORCE
+        fi
+    fi
+}
+
+
+REMOVE=(
+    "midori"                # Lightweight web browser
+    "parole"                # Modern media player based on the GStreamer framework
+    "qpdfview"              # A tabbed PDF viewer using the poppler library
+    "gnome-keyring"         # Stores passwords and encryption keys
+    "seahorse"              # GNOME application for managing PGP keys.
+    "evince"                # Document viewer 
+)
+
+LIST=(
+    # Development packages
+    "git"
+    "tig"
+    "ctags"
+    "clang"
+    "python-pip"
+    "libpqxx"
+    "go"
+
+    # Fonts
+    "terminus-font"
+    "ttf-font-awesome"
+
+    # Themes & utils
+    "qt5ct"                 # Qt5 Configuration Utility
+    "qt6ct"                 # Qt 6 Configuration Utility
+
+    # Utils
+    "xorg-xrandr"
+    "xorg-xev"
+    "xorg-xinput"
+    "xorg-xprop"            # Property displayer for X
+    "xorg-xwininfo"         # Command-line utility to print information about windows on an X server
+    "numlockx"              # Turns on the numlock key in X11
+
+    "xdg-desktop-portal"    # Desktop integration portals for sandboxed apps
+    "xdg-desktop-portal-gtk"
+
+    "rxvt-unicode"
+    "htop"
+    "unrar"
+    "p7zip"
+    "mc"
+    "grc"                   # Yet another colouriser for beautifying your
+                            # logfiles or output of commands
+
+    "gnome-calculator"      # GNOME Scientific calculator
+    "keepassxc"             # Cross-platform community-driven port of Keepass 
+                            # password manager
+
+    "trash-cli"             # Command line trashcan (recycle bin) interface
+    "imagemagick"           # An image viewing/manipulation program
+    "mousepad"              # Simple text editor for Xfce
+    "gparted"               # A Partition Magic clone, frontend to GNU Parted
+    "zathura"               # Minimalistic document viewer
+
+    # Network
+    "wget"
+    "curl"
+    "w3m"
+    "sshfs"
+    "websocat"              # Command-line client for web sockets, like 
+                            # netcat/curl/socat for ws://
+    "net-tools"             # Configuration tools for Linux networking
+    "dnsutils"              # A complete, highly portable implementation of the DNS protocol
+
+    "firefox"
+    "telegram-desktop"
+    "transmission-gtk"
+
+    # Media
+    "mpv"                   # Cross-platform media player
+    "feh"                   # Fast and light imlib2-based image viewer
+    "pulsemixer"            # CLI and curses mixer for pulseaudio
+    "python-mutagen"        # An audio metadata tag reader and writer
+                            # (python library)
+
+    # WM & dependencies
+    "bspwm"                 # Tiling window manager based on binary space partitioning
+    "picom"                 # X compositor that may fix tearing issues
+    "sxhkd"                 # Simple X hotkey daemon
+    "rofi"                  # A window switcher, run dialog and dmenu replacement
+    "polybar"               # A fast and easy-to-use status bar
+    "dunst"                 # Customizable and lightweight notification-daemon
+)
+
+AUR=(
+    # Themes & utils
+    #"qt5-styleplugins"      # Additional style plugins for Qt5
+    #"qt6gtk2"               # GTK+2.0 integration plugins for Qt6 (AUR)
+
+    # Fonts
+    "ttf-iosevka-fixed-curly"
+    "ttf-symbola"
+)
+
+
+echo -en "Remove preinstalled packages? [y/N] "
+read select
+[[ "Y|y" == *"${select:-N}"* ]] \
+    && sudo pacman --remove ${REMOVE[*]}
+
+echo -en "Install base development meta-package? [y/N] "
+read select
+[[ "Y|y" == *"${select:-N}"* ]] \
+    && sudo pacman -S base-devel
+
+echo -en "Install packages? [Y/n] "
+read select
+[[ "Y|y" == *"${select:-Y}"* ]] \
+    && sudo pacman -S ${LIST[*]} --needed
+
+echo -en "Install AUR packages? [y/N] "
+read select
+[[ "Y|y" == *"${select:-N}"* ]] \
+    && sudo pamac install ${AUR[*]}
+
