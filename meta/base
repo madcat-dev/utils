@@ -88,6 +88,7 @@ LIST=(
     "xorg-xinput"
     "xorg-xprop"            # Property displayer for X
     "xorg-xwininfo"         # Command-line utility to print information about windows on an X server
+    "xclip"                 # Command line interface to the X11 clipboard
     "numlockx"              # Turns on the numlock key in X11
 
     "xdg-desktop-portal"    # Desktop integration portals for sandboxed apps
