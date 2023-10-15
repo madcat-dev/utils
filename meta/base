@@ -140,10 +140,6 @@ LIST=(
 )
 
 AUR=(
-    # Themes & utils
-    #"qt5-styleplugins"      # Additional style plugins for Qt5
-    #"qt6gtk2"               # GTK+2.0 integration plugins for Qt6 (AUR)
-
     # Fonts
     "ttf-iosevka-fixed-curly"
     "ttf-symbola"
