@@ -12,36 +12,36 @@ REMOVE=(
 
 LIST=(
     # Development packages
-    "git"
-    "tig"
-    "ctags"
-    "clang"
-    "python-pip"
-    "libpqxx"
-    "go"
+    "git"                   # The fast distributed version control system
+    "tig"                   # Text-mode interface for Git
+    "ctags"                 # Generates an index file of language objects found in source files
+    "clang"                 # C language family frontend for LLVM
+    "python-pip"            # The PyPA recommended tool for installing Python packages
+    "libpqxx"               # C++ client API for PostgreSQL
+    "go"                    # Core compiler tools for the Go programming language
 
     # Fonts
-    "terminus-font"
-    "ttf-font-awesome"
+    "terminus-font"         # Monospace bitmap font (for X11 and console)
+    "ttf-font-awesome"      # Iconic font designed for Bootstrap
 
     # Themes & utils
     "qt5ct"                 # Qt5 Configuration Utility
     "qt6ct"                 # Qt 6 Configuration Utility
 
     # X-console utils
-    "xorg-xrandr"
-    "xorg-xev"
-    "xorg-xinput"
+    "xorg-xrandr"           # Primitive command line interface to RandR extension
+    "xorg-xev"              # Print contents of X events
+    "xorg-xinput"           # Small commandline tool to configure devices
     "xorg-xprop"            # Property displayer for X
     "xorg-xwininfo"         # Command-line utility to print information about windows on an X server
     "xclip"                 # Command line interface to the X11 clipboard
     "numlockx"              # Turns on the numlock key in X11
 
     # Console utils
-    "htop"
-    "unrar"
-    "p7zip"
-    "mc"
+    "htop"                  # Interactive process viewer
+    "unrar"                 # The RAR uncompression program
+    "p7zip"                 # Command-line file archiver with high compression ratio
+    "mc"                    # A file manager that emulates Norton Commander
     "grc"                   # Yet another colouriser for beautifying your
                             # logfiles or output of commands
     "rxvt-unicode"
@@ -51,10 +51,10 @@ LIST=(
     "imagemagick"           # An image viewing/manipulation program
 
     # Network utils
-    "wget"
-    "curl"
-    "w3m"
-    "sshfs"
+    "wget"                  # Network utility to retrieve files from the Web
+    "curl"                  # Command line tool and library for transferring data with URLs
+    "w3m"                   # Text-based Web browser as well as pager
+    "sshfs"                 # FUSE client based on the SSH File Transfer Protocol
     "net-tools"             # Configuration tools for Linux networking
     "dnsutils"              # A complete, highly portable implementation of the DNS protocol
 
@@ -67,9 +67,9 @@ LIST=(
     "xdg-desktop-portal"    # Desktop integration portals for sandboxed apps
     "xdg-desktop-portal-gtk"
 
-    "firefox"
-    "telegram-desktop"
-    "transmission-gtk"
+    "firefox"               # Standalone web browser from mozilla.org
+    "telegram-desktop"      # Official Telegram Desktop client
+    "transmission-gtk"      # Fast, easy, and free BitTorrent client (GTK+ GUI)
 
     # Media
     "mpv"                   # Cross-platform media player
@@ -89,7 +89,7 @@ LIST=(
 
 echo -en "Remove preinstalled packages? [y/N] "
 read select
-if [[ "Y|y" == *"${select:-N}"* ]]; then
+if [[ ${select:-N} =~ y|Y ]]; then
     for pkg in ${REMOVE[*]}; do
         sudo pacman -R $pkg
     done
@@ -97,10 +97,10 @@ fi
 
 echo -en "Install base development meta-package? [Y/n] "
 read select
-[[ "Y|y" == *"${select:-N}"* ]] \
+[[ ${select:-Y} =~ y|Y ]] \
     && sudo pacman -S base-devel
 
 echo -en "Install packages? [Y/n] "
 read select
-[[ "Y|y" == *"${select:-Y}"* ]] \
+[[ ${select:-Y} =~ y|Y ]] \
     && sudo pacman -S ${LIST[*]} --needed
