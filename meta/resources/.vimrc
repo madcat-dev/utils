@@ -367,7 +367,7 @@ function! DeleteCurrentBuffer()
   execute 'bd! '.crbuf
 endfunction
 
-function! ListToggle()
+function! UnprintedToggle()
     if &list==1
         execute 'set nolist'
     else
@@ -385,58 +385,41 @@ if &filetype!='python'
     inoremap <Nul> <C-X><C-O>
 endif
 
-
+" Навигатор по ФС
 noremap  <F3> :NERDTreeToggle<CR>
-inoremap <F3> <ESC>:NERDTreeToggle<CR>
-vnoremap <F3> <ESC>:NERDTreeToggle<CR>
-
+" Навигатор классов/тегов
 noremap  <F4> :TagbarToggle<CR>
-inoremap <F4> <ESC>:TagbarToggle<CR>
-vnoremap <F4> <ESC>:TagbarToggle<CR>
-
+" Панель системного вывода (ошибки, консольный вывод...)
 map      <F5> <Plug>(qf_qf_toggle)
-imap     <F5> <ESC><Plug>(qf_qf_toggle)
-vmap     <F5> <ESC><Plug>(qf_qf_toggle)
-
+" Панель Запланированных задач (TODO...)
 noremap  <F6> :TaskList<CR>     
-inoremap <F6> <ESC>:TaskList<CR>     
-vnoremap <F6> <ESC>:TaskList<CR>     
-
 " Переключение буферов - педыдущий
 noremap  <F7> :bp<CR>
-inoremap <F7> <ESC>:bp<CR>
-vnoremap <F7> <ESC>:bp<CR>
 noremap  <S-Left> :bp<CR>
-inoremap <S-Left> <ESC>:bp<CR>
-vnoremap <S-Left> <ESC>:bp<CR>
-
 " Удалить текущий буффер
 noremap  <F8> :call g:DeleteCurrentBuffer()<CR>     
-inoremap <F8> <ESC>:call g:DeleteCurrentBuffer()<CR>     
-vnoremap <F8> <ESC>:call g:DeleteCurrentBuffer()<CR>     
-
 " Переключение буферов - следующий
-noremap  <F9> :bn<CR>
-inoremap <F9> <ESC>:bn<CR>
-vnoremap <F9> <ESC>:bn<CR>
-noremap  <S-Right> :bn<CR>
-inoremap <S-Right> <ESC>:bn<CR>
-vnoremap <S-Right> <ESC>:bn<CR>
+noremap  <F9>            :bn<CR>
+noremap  <S-Right>       :bn<CR>
 
 " Показать/скрыть непечатные символы
-noremap  <F10> :call g:ListToggle()<CR>     
-inoremap <F10> <ESC>:call g:ListToggle()<CR>     
-vnoremap <F10> <ESC>:call g:ListToggle()<CR>     
+noremap  <F10>      :call g:UnprintedToggle()<CR>     
 
-" Select all
-noremap  <C-A> gg<S-V><S-G>
-inoremap <C-A> <ESC>gg<S-V><S-G>
-vnoremap <C-A> <ESC>gg<S-V><S-G>
+if has("clipboard")
+    " CTRL-X are Cut
+    vnoremap <C-X>  "+x
+    " CTRL-C are Copy
+    vnoremap <C-C>  "+y
+    " CTRL-V are Paste
+    noremap  <C-V>  "+gP
+    inoremap <C-V>	<C-O>"+gP
+else
+    " CTRL-X are Cut
+    vnoremap <C-X>  "yx <Bar> :call system('xclip -selection clipboard', @y)<CR>
+    " CTRL-C are Copy
+    vnoremap <C-C>  "yy <Bar> :call system('xclip -selection clipboard', @y)<CR>
+    " CTRL-V are Paste
+    noremap  <C-V>	:let @y=system('xclip -o -sel clip')<Bar> normal "ygP<CR>
+    inoremap <C-V>	<C-O>:let @y=system('xclip -o -sel clip')<Bar> normal "ygP<CR>
+endif
 
-" Cut
-vnoremap <C-c> "+x
-" Copy
-vnoremap <C-c> "+y
-" Paste
-noremap  <C-v> "+Pa
-inoremap <C-v> <ESC>"+pa
