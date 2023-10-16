@@ -89,7 +89,7 @@ PKGS_ALL=(
 
 echo -en "Remove preinstalled packages? [Y/n] "
 read select
-if [[ "${select:-Y}" =~ y|Y ]]; then
+if [[ "${select:-Y}" =~ ^y|Y ]]; then
     for pkg in ${PKGS_TO_REMOVE[*]}; do
         sudo pacman -R $pkg
     done
@@ -97,10 +97,10 @@ fi
 
 echo -en "Install base development meta-package? [Y/n] "
 read select
-[[ "${select:-Y}" =~ y|Y ]] \
+[[ "${select:-Y}" =~ ^y|Y ]] \
     && sudo pacman -S base-devel
 
 echo -en "Install packages? [Y/n] "
 read select
-[[ "${select:-Y}" =~ y|Y ]] \
+[[ "${select:-Y}" =~ ^y|Y ]] \
     && sudo pacman -S ${PKGS_ALL[*]} --needed
