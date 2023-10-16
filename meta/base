@@ -87,9 +87,9 @@ LIST=(
     "dunst"                 # Customizable and lightweight notification-daemon
 )
 
-echo -en "Remove preinstalled packages? [y/N] "
+echo -en "Remove preinstalled packages? [Y/n] "
 read select
-if [[ ${select:-N} =~ y|Y ]]; then
+if [[ ${select:-Y} =~ y|Y ]]; then
     for pkg in ${REMOVE[*]}; do
         sudo pacman -R $pkg
     done
