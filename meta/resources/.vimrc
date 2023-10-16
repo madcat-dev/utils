@@ -415,9 +415,9 @@ if has("clipboard")
     inoremap <C-V>	<C-O>"+gP
 else
     " CTRL-X are Cut
-    vnoremap <C-X>  "yx <Bar> :call system('xclip -selection clipboard', @y)<CR>
+    vnoremap <C-X>  "yx <Bar> :call system('xclip -sel clip', @y)<CR>
     " CTRL-C are Copy
-    vnoremap <C-C>  "yy <Bar> :call system('xclip -selection clipboard', @y)<CR>
+    vnoremap <C-C>  "yy <Bar> :call system('xclip -sel clip', @y)<CR>
     " CTRL-V are Paste
     noremap  <C-V>	:let @y=system('xclip -o -sel clip')<Bar> normal "ygP<CR>
     inoremap <C-V>	<C-O>:let @y=system('xclip -o -sel clip')<Bar> normal "ygP<CR>
