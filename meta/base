@@ -28,7 +28,7 @@ LIST=(
     "qt5ct"                 # Qt5 Configuration Utility
     "qt6ct"                 # Qt 6 Configuration Utility
 
-    # Utils
+    # X-console utils
     "xorg-xrandr"
     "xorg-xev"
     "xorg-xinput"
@@ -37,34 +37,35 @@ LIST=(
     "xclip"                 # Command line interface to the X11 clipboard
     "numlockx"              # Turns on the numlock key in X11
 
-    "xdg-desktop-portal"    # Desktop integration portals for sandboxed apps
-    "xdg-desktop-portal-gtk"
-
-    "rxvt-unicode"
+    # Console utils
     "htop"
     "unrar"
     "p7zip"
     "mc"
     "grc"                   # Yet another colouriser for beautifying your
                             # logfiles or output of commands
-
-    "gnome-calculator"      # GNOME Scientific calculator
-    "keepassxc"             # Cross-platform community-driven port of Keepass 
-                            # password manager
-
+    "rxvt-unicode"
+    "neofetch"              # A CLI system information tool written in BASH
+                            # that supports displaying images.
     "trash-cli"             # Command line trashcan (recycle bin) interface
     "imagemagick"           # An image viewing/manipulation program
-    "gparted"               # A Partition Magic clone, frontend to GNU Parted
 
-    # Network
+    # Network utils
     "wget"
     "curl"
     "w3m"
     "sshfs"
-    "websocat"              # Command-line client for web sockets, like 
-                            # netcat/curl/socat for ws://
     "net-tools"             # Configuration tools for Linux networking
     "dnsutils"              # A complete, highly portable implementation of the DNS protocol
+
+    # Applications
+    "gnome-calculator"      # GNOME Scientific calculator
+    "keepassxc"             # Cross-platform community-driven port of Keepass 
+                            # password manager
+    "gparted"               # A Partition Magic clone, frontend to GNU Parted
+
+    "xdg-desktop-portal"    # Desktop integration portals for sandboxed apps
+    "xdg-desktop-portal-gtk"
 
     "firefox"
     "telegram-desktop"
