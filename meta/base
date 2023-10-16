@@ -1,6 +1,6 @@
 #!/bin/sh
 
-REMOVE=(
+PKGS_TO_REMOVE=(
     "midori"                # Lightweight web browser
     "parole"                # Modern media player based on the GStreamer framework
     "qpdfview"              # A tabbed PDF viewer using the poppler library
@@ -10,7 +10,7 @@ REMOVE=(
     "mousepad"              # Simple text editor for Xfce
 )
 
-LIST=(
+PKGS_ALL=(
     # Development packages
     "git"                   # The fast distributed version control system
     "tig"                   # Text-mode interface for Git
@@ -89,18 +89,18 @@ LIST=(
 
 echo -en "Remove preinstalled packages? [Y/n] "
 read select
-if [[ ${select:-Y} =~ y|Y ]]; then
-    for pkg in ${REMOVE[*]}; do
+if [[ "${select:-Y}" =~ y|Y ]]; then
+    for pkg in ${PKGS_TO_REMOVE[*]}; do
         sudo pacman -R $pkg
     done
 fi
 
 echo -en "Install base development meta-package? [Y/n] "
 read select
-[[ ${select:-Y} =~ y|Y ]] \
+[[ "${select:-Y}" =~ y|Y ]] \
     && sudo pacman -S base-devel
 
 echo -en "Install packages? [Y/n] "
 read select
-[[ ${select:-Y} =~ y|Y ]] \
-    && sudo pacman -S ${LIST[*]} --needed
+[[ "${select:-Y}" =~ y|Y ]] \
+    && sudo pacman -S ${PKGS_ALL[*]} --needed
