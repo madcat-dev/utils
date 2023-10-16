@@ -60,8 +60,8 @@ call plug#begin()
 
     " --- AirLine ---
     Plug 'vim-airline/vim-airline'          " Lean & mean status/tabline for vim
-    Plug 'vim-airline/vim-airline-themes'
-    Plug 'arcticicestudio/nord-vim'
+
+    Plug 'dylanaraps/wal.vim'
 
     " --- Python ---
     Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }    
@@ -89,7 +89,6 @@ call plug#begin()
 
 " } All of your Plugins must be added before the following line
 call plug#end()
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " БАЗОВЫЕ НАСТРОЙКИ
@@ -139,6 +138,9 @@ autocmd FocusGained * checktime
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ВНЕШНИЙ ВИД
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" отключаем пищалку и мигание
+set t_vb= 
+set novisualbell
 " Отступы пробелами, а не табуляциями, где нужно укажем впециально
 set expandtab
 " Ширина строки 80 символов (для автопереноса)
@@ -191,40 +193,31 @@ set foldmethod=syntax
 " Отключаем подсветку скобок
 let g:loaded_matchparen=1
 
-" отключаем пищалку и мигание
-set t_vb= 
-set novisualbell
+if has('gui_running')
+    set guifont=Iosevka\ Fixed\ Curly\ Medium\ 12
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLOR
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set t_Co=256 " 256 colors
-"let g:solarized_termcolors=256
-set background=dark
-" закоментировать, если используются цвета терминала
+" Закоментировать, если используются цвета терминала
 "set termguicolors
 
+" Установка цветовой схемы
 try
-    colorscheme nord
+    colorscheme wal
 catch /.*/
-    "colorscheme default
+    colorscheme default
 endtry
 
 " Подсвечивать колонку, на которой находится курсор
 "set cursorcolumn
 " Подсвечивать линию текста, на которой находится курсор
-set cursorline
-hi CursorLine ctermbg=234
+"set cursorline
+"hi CursorLine ctermbg=234
 " Подсветить максимальную ширину строки
 let &colorcolumn=80
-hi ColorColumn ctermbg=233
-" переопределение цветов курсора
-if &term =~ "xterm\\|rxvt"
-    "silent !echo -ne "\033]12;orange\007"
-    "" reset cursor when vim exits
-    "autocmd VimLeave * silent !echo -ne "\033]112\007"
-endif
-
+hi ColorColumn term=reverse ctermfg=240 ctermbg=235
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -272,6 +265,97 @@ autocmd filetype python set nocin
 " SNIPPETS-файлы
 autocmd filetype snippets set noexpandtab
 autocmd filetype snippets set nocin
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" clang-completer
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Включить дополнительные подсказки (аргументы функций, шаблонов и т.д.)        
+let g:clang_snippets=1                                                          
+" Периодически проверять проект на ошибки                                       
+let g:clang_periodic_quickfix=0
+" Подсвечивать ошибки                                                           
+let g:clang_hl_errors=1
+" Автоматически закрывать окно подсказок после выбора подсказки                 
+let g:clang_close_preview=1                                              
+" Чтобы открыть окно с расшифровкой ошибок нужно набрать :copen, закрыть :cclose 
+" Также можно увидеть декларацию функции нажав Ctrl+]
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Python-mode settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" отключаем автокомплит по коду 
+let g:pymode_rope = 0
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
+
+" документация
+let g:pymode_doc = 0
+let g:pymode_doc_key = 'K'
+" проверка кода
+let g:pymode_lint = 1
+let g:pymode_lint_ignore = ["E501","W601","C0110"]
+" провека кода после сохранения
+let g:pymode_lint_write = 0
+
+" поддержка virtualenv
+let g:pymode_virtualenv = 1
+
+" установка breakpoints
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_key = '<leader>b'
+
+" подстветка синтаксиса
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+let g:pymode_quickfix_minheight = 7
+let g:pymode_quickfix_maxheight = 7
+
+" отключить autofold по коду
+let g:pymode_folding = 0
+
+" возможность запускать код
+let g:pymode_run = 0
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Jedi-vim settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:jedi#show_call_signatures = 1 " show call signatures
+let g:jedi#popup_on_dot = 0         " enable autocomplete on dot
+let g:jedi#popup_select_first = 0   " disable first select from auto-complete
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim-go settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:go_fmt_command = 'goimports'  " Run goimports along gofmt on each save     
+let g:go_list_type = "quickfix"
+
+let g:go_auto_type_info = 1         " Automatically get signature/type info for object under cursor
+
+let g:go_fmt_autosave = 1
+let g:go_metalinter_autosave = 1
+
+let g:go_quickfix_height = 7
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" настройки Vim-Airline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set laststatus=2
+let g:airline_theme='wal'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+" настройка символов оформления
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -356,94 +440,3 @@ vnoremap <C-c> "+y
 " Paste
 noremap  <C-v> "+Pa
 inoremap <C-v> <ESC>"+pa
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" clang-completer
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Включить дополнительные подсказки (аргументы функций, шаблонов и т.д.)        
-let g:clang_snippets=1                                                          
-" Периодически проверять проект на ошибки                                       
-let g:clang_periodic_quickfix=0
-" Подсвечивать ошибки                                                           
-let g:clang_hl_errors=1
-" Автоматически закрывать окно подсказок после выбора подсказки                 
-let g:clang_close_preview=1                                              
-" Чтобы открыть окно с расшифровкой ошибок нужно набрать :copen, закрыть :cclose 
-" Также можно увидеть декларацию функции нажав Ctrl+]
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Python-mode settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" отключаем автокомплит по коду 
-let g:pymode_rope = 0
-let g:pymode_rope_completion = 0
-let g:pymode_rope_complete_on_dot = 0
-
-" документация
-let g:pymode_doc = 0
-let g:pymode_doc_key = 'K'
-" проверка кода
-let g:pymode_lint = 1
-let g:pymode_lint_ignore = ["E501","W601","C0110"]
-" провека кода после сохранения
-let g:pymode_lint_write = 0
-
-" поддержка virtualenv
-let g:pymode_virtualenv = 1
-
-" установка breakpoints
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_key = '<leader>b'
-
-" подстветка синтаксиса
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-
-let g:pymode_quickfix_minheight = 7
-let g:pymode_quickfix_maxheight = 7
-
-" отключить autofold по коду
-let g:pymode_folding = 0
-
-" возможность запускать код
-let g:pymode_run = 0
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Jedi-vim settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:jedi#show_call_signatures = 1 " show call signatures
-let g:jedi#popup_on_dot = 0         " enable autocomplete on dot
-let g:jedi#popup_select_first = 0   " disable first select from auto-complete
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim-go settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:go_fmt_command = 'goimports'  " Run goimports along gofmt on each save     
-let g:go_list_type = "quickfix"
-
-let g:go_auto_type_info = 1         " Automatically get signature/type info for object under cursor
-
-let g:go_fmt_autosave = 1
-let g:go_metalinter_autosave = 1
-
-let g:go_quickfix_height = 7
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" настройки Vim-Airline
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set laststatus=2
-let g:airline_theme='nord'
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-" настройка символов оформления
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif

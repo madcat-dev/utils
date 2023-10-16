@@ -1,59 +1,5 @@
 #!/bin/sh
 
-isinstalled() {
-    [[ $(ls /var/lib/pacman/local | grep -E "^${1}-[0-9]+.*$") ]] \
-        && return 0
-    return 1
-}
-
-remove() {
-    local LIST
-
-    for i in ${@}; do
-        isinstalled "$i" && LIST="$LIST $i"
-    done
-
-    [[ ! "$LIST" ]] && return
-
-    echo -e "$LIST"
-    echo -n "Remove? [Y/n] "
-    read select
-
-    [[ "Y|y" == *"${select:-Y}"* ]] \
-        && sudo pacman --remove $LIST
-}
-
-install() {
-    local ISAUR LIST
-
-    if [[ "$1" == "--aur" ]]; then
-        ISAUR=true; shift
-    fi
-
-    if [[ "$NOFORCE" ]]; then
-        for i in ${@}; do
-            isinstalled "$i" || LIST="$LIST $i"
-        done
-    else
-        LIST="${@}"
-    fi
-
-    [[ ! "$LIST" ]] && return
-
-    echo -e "$LIST"
-    echo -n "Install? [Y/n] "
-    read select
-
-    if [[ "Y|y" == *"${select:-Y}"* ]]; then
-        if [[ "$ISAUR" ]]; then
-            pamac install $LIST
-        else
-            sudo pacman -S $LIST $NOFORCE
-        fi
-    fi
-}
-
-
 REMOVE=(
     "midori"                # Lightweight web browser
     "parole"                # Modern media player based on the GStreamer framework

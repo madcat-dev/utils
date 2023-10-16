@@ -14,11 +14,14 @@ while [ -n "$1" ]; do
     shift
 done
 
-mkdir -p "$PREFIX/bin" > /dev/null 2>&1
-
-if ! cp -xar "$BASE/bin" "$PREFIX"; then
-    echo "Error of copy files!"
+if ! cd "$PREFIX/bin"; then
+    echo "PREFIX-path not existing"
     exit 1
 fi
 
-echo "Install successfully!"
+if ! rm -f $(ls "$BASE/bin"); then
+    echo "Error of remove files"
+    exit 1
+fi
+
+echo "Uninstall successfully!"
