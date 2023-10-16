@@ -140,12 +140,6 @@ LIST=(
     "dunst"                 # Customizable and lightweight notification-daemon
 )
 
-AUR=(
-    # Fonts
-    "ttf-iosevka-fixed-curly"
-    "ttf-symbola"
-)
-
 echo -en "Remove preinstalled packages? [y/N] "
 read select
 if [[ "Y|y" == *"${select:-N}"* ]]; then
@@ -163,9 +157,3 @@ echo -en "Install packages? [Y/n] "
 read select
 [[ "Y|y" == *"${select:-Y}"* ]] \
     && sudo pacman -S ${LIST[*]} --needed
-
-echo -en "Install AUR packages? [y/N] "
-read select
-[[ "Y|y" == *"${select:-N}"* ]] \
-    && sudo pamac install ${AUR[*]}
-
