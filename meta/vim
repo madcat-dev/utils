@@ -5,11 +5,10 @@ CONF="$(dirname "${0/\~/$HOME}")/resources"
 echo -e "Remove previous configuration..."
 rm -rf $HOME/.vim/ > /dev/null 2>&1
 
-if ! which gvim > /dev/null; then
+if ! which vim > /dev/null; then
 	echo -e "Install 'gvim' package..."
-	sudo pacman -S gvim --needed || exit 1
+	sudo pacman -S vim xclip --needed || exit 1
 fi
-
 
 if [ ! -e ~/.vimrc ]; then
     echo "Copy .vimrc file..."
