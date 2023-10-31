@@ -6,7 +6,7 @@ PKGS_TO_REMOVE=(
     "qpdfview"              # A tabbed PDF viewer using the poppler library
     "gnome-keyring"         # Stores passwords and encryption keys
     "seahorse"              # GNOME application for managing PGP keys.
-    "evince"                # Document viewer 
+    "evince"                # Document viewer
     "mousepad"              # Simple text editor for Xfce
 )
 
@@ -60,13 +60,9 @@ PKGS_ALL=(
 
     # Applications
     "gnome-calculator"      # GNOME Scientific calculator
-    "keepassxc"             # Cross-platform community-driven port of Keepass 
+    "keepassxc"             # Cross-platform community-driven port of Keepass
                             # password manager
     "gparted"               # A Partition Magic clone, frontend to GNU Parted
-
-    "xdg-desktop-portal"    # Desktop integration portals for sandboxed apps
-    "xdg-desktop-portal-gtk"
-
     "firefox"               # Standalone web browser from mozilla.org
     "telegram-desktop"      # Official Telegram Desktop client
     "transmission-gtk"      # Fast, easy, and free BitTorrent client (GTK+ GUI)
@@ -77,6 +73,29 @@ PKGS_ALL=(
     "pulsemixer"            # CLI and curses mixer for pulseaudio
     "python-mutagen"        # An audio metadata tag reader and writer
                             # (python library)
+
+    # Desktop & integration
+    "xdg-desktop-portal"    # Desktop integration portals for sandboxed apps
+    "xdg-desktop-portal-gtk"
+    "xdg-dbus-proxy"        # Filtering proxy for D-Bus connections
+    "xdg-utils"             # Command line tools that assist applications with
+                            # a variety of desktop integration tasks
+
+    "thunar"                # Modern, fast and easy-to-use file manager for Xfce
+    "thunar-archive-plugin" # Adds archive operations to the Thunar file context menus
+    "thunar-media-tags-plugin" # Adds special features for media files
+    "thunar-volman"         # Automatic management of removable drives and media
+    "thunarx-python"        # Thunarx Python Bindings
+    "gtkhash-thunar"        # GtkHash extension for Thunar
+    "tumbler"               # Thumbnail service implementing the thumbnail management D-Bus specification
+    "engrampa"              # Archive manipulator
+
+    "gvfs"                  # Virtual filesystem implementation for GIO
+    "gvfs-afc"              # gvfs AFC backend; Apple mobile devices
+    "gvfs-gphoto2"          # gvfs gphoto2 backend; PTP camera, MTP media player
+    "gvfs-mtp"              # gvfs MTP backend; Android, media player
+    "gvfs-nfs"              # gvfs NFS backend
+    "gvfs-smb"              # gvfs SMB/CIFS backend; Windows client
 
     # WM & dependencies
     "bspwm"                 # Tiling window manager based on binary space partitioning
@@ -104,3 +123,10 @@ echo -en "Install packages? [Y/n] "
 read select
 [[ "${select:-Y}" =~ ^y|Y ]] \
     && sudo pacman -S ${PKGS_ALL[*]} --needed
+
+echo -en "Run post-install scripts? [Y/n] "
+read select
+if [[ "${select:-Y}" =~ ^y|Y ]]; then
+    xdg-mime default thunar.desktop inode/directory
+    echo "add 'export GTK_USE_PORTAL=0' to profile"
+fi

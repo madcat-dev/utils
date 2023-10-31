@@ -23,8 +23,7 @@ call plug#begin()
 
     Plug 'xavierd/clang_complete'
     " Основные зависимости для поддержки плагинов
-    " clang, libclang, ctags, ... 
-    "
+    " clang, libclang, ctags, ...
     " может понадобиться прописать let
     " g:clang_library_path='/usr/lib/llvm-3.5/lib/'
     " с указанием пути к библиотеке libclang
@@ -61,14 +60,14 @@ call plug#begin()
     " --- AirLine ---
     Plug 'vim-airline/vim-airline'          " Lean & mean status/tabline for vim
 
-    Plug 'dylanaraps/wal.vim'
+    Plug 'madcat-dev/xtheme.vim'
 
     " --- Python ---
-    Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }    
-                                    " Python mode (docs, refactor, lints, 
-                                    " highlighting, run and ipdb and more)
-    Plug 'davidhalter/jedi-vim' 		    " Jedi-vim autocomplete plugin
-    Plug 'mitsuhiko/vim-jinja'		        " Jinja support for vim
+    Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+    " Python mode (docs, refactor, lints,
+    " highlighting, run and ipdb and more)
+    Plug 'davidhalter/jedi-vim'             " Jedi-vim autocomplete plugin
+    Plug 'mitsuhiko/vim-jinja'              " Jinja support for vim
     Plug 'mitsuhiko/vim-python-combined'    " Combined Python 2/3 for Vim
 
     " --- Git ---
@@ -95,7 +94,7 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Позволим конфигурационным файлам в проекте изменять настройки vim'a
 " Включим чтение конфигурационных файлов .vimrc в текущей директории
-"set exrc                                                                     
+"set exrc
 " Запретим опасные команды в локальных .vimrc файлах (эта опция должна идти
 " в вашем ~/.vimrc после запрещаемых команд, таких как write)
 set secure
@@ -108,8 +107,8 @@ set noundofile
 set bs=indent,eol,start
 " кодировка по умолчанию
 set fileencoding=utf-8
-set encoding=utf-8 
-set termencoding=utf-8 
+set encoding=utf-8
+set termencoding=utf-8
 set fileencodings=utf8,koi8r,cp1251,cp866,ucs-2le
 set fileformat=unix
 " Не выгружать буфер, когда переключаемся на другой
@@ -139,7 +138,7 @@ autocmd FocusGained * checktime
 " ВНЕШНИЙ ВИД
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " отключаем пищалку и мигание
-set t_vb= 
+set t_vb=
 set novisualbell
 " Отступы пробелами, а не табуляциями, где нужно укажем впециально
 set expandtab
@@ -160,17 +159,17 @@ syntax on
 " Указывать номера строк
 set number
 " включение дополнительной информации о статусной строке
-set statusline=%<%f%h%m%r\[%{strlen(&ft)?&ft:'none'}]%=format=%{&fileformat}\ file=%{&fileencoding}\ enc=%{&encoding}\ %b\ 0x%B\ %l,%c%V\ %P 
+set statusline=%<%f%h%m%r\[%{strlen(&ft)?&ft:'none'}]%=format=%{&fileformat}\ file=%{&fileencoding}\ enc=%{&encoding}\ %b\ 0x%B\ %l,%c%V\ %P
 set laststatus=2
 " Показывать положение курсора всё время
 set ruler
-" Включаем bash-подобное дополнение командной строки                            
+" Включаем bash-подобное дополнение командной строки
 set wildmode=longest:list,full
 " Дополнительная информация в строке состояния
 set wildmenu
-" Не делать все окна одинакового размера                                        
-set noequalalways                                                               
-" Высота окон по-умолчанию                                             
+" Не делать все окна одинакового размера
+set noequalalways
+" Высота окон по-умолчанию
 set winheight=20
 " Ширина окна по-умолчанию
 set winwidth=20
@@ -184,28 +183,25 @@ set showcmd
 " Фолдинг
 set foldenable
 set foldlevel=100
-"set foldmethod=indent
+set foldmethod=indent
 "set foldmethod=manual
-set foldmethod=syntax
+"set foldmethod=syntax
 " Колоночка, чтобы показывать плюсики для скрытия блоков кода:
 "set foldcolumn=1
 
 " Отключаем подсветку скобок
-let g:loaded_matchparen=1
+"let g:loaded_matchparen=1
 
 if has('gui_running')
     set guifont=Iosevka\ Fixed\ Curly\ Medium\ 12
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" COLOR
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Закоментировать, если используются цвета терминала
 "set termguicolors
 
 " Установка цветовой схемы
 try
-    colorscheme wal
+    colorscheme xtheme
 catch /.*/
     colorscheme default
 endtry
@@ -213,22 +209,20 @@ endtry
 " Подсвечивать колонку, на которой находится курсор
 "set cursorcolumn
 " Подсвечивать линию текста, на которой находится курсор
-"set cursorline
-"hi CursorLine ctermbg=234
+set cursorline
 " Подсветить максимальную ширину строки
 let &colorcolumn=80
-hi ColorColumn term=reverse ctermfg=240 ctermbg=235
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ПОИСК
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Игнорировать регистр при поиске                                               
+" Игнорировать регистр при поиске
 set ignorecase
 set smartcase
-" Подсвечивать поиск                                                            
+" Подсвечивать поиск
 set hlsearch
-" Использовать последовательный поиск                                         
+" Использовать последовательный поиск
 set incsearch
 
 
@@ -242,20 +236,20 @@ set completeopt-=preview
 " Расставлять отступы в стиле С
 autocmd filetype c,cpp set cin
 
-" MAKE-файлы                                                                       
-" В make-файлах нам не нужно заменять табуляцию пробелами                          
-autocmd filetype make set noexpandtab                                              
+" MAKE-файлы
+" В make-файлах нам не нужно заменять табуляцию пробелами
+autocmd filetype make set noexpandtab
 autocmd filetype make set nocin
 
-" HTML-файлы                                                                       
-" Не расставлять отступы в стиле С в html файлах                                
-autocmd filetype html set noexpandtab                                           
-autocmd filetype html set nocin                                                 
+" HTML-файлы
+" Не расставлять отступы в стиле С в html файлах
+autocmd filetype html set noexpandtab
+autocmd filetype html set nocin
 autocmd filetype html set textwidth=160
 
-" CSS-файлы                                                                     
+" CSS-файлы
 " Не расставлять отступы в стиле C и не заменять табуляцию пробелами
-autocmd filetype css set noexpandtab            
+autocmd filetype css set noexpandtab
 autocmd filetype css set nocin
 
 " PYTHON-файлы
@@ -270,22 +264,22 @@ autocmd filetype snippets set nocin
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " clang-completer
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Включить дополнительные подсказки (аргументы функций, шаблонов и т.д.)        
-let g:clang_snippets=1                                                          
-" Периодически проверять проект на ошибки                                       
+" Включить дополнительные подсказки (аргументы функций, шаблонов и т.д.)
+let g:clang_snippets=1
+" Периодически проверять проект на ошибки
 let g:clang_periodic_quickfix=0
-" Подсвечивать ошибки                                                           
+" Подсвечивать ошибки
 let g:clang_hl_errors=1
-" Автоматически закрывать окно подсказок после выбора подсказки                 
-let g:clang_close_preview=1                                              
-" Чтобы открыть окно с расшифровкой ошибок нужно набрать :copen, закрыть :cclose 
+" Автоматически закрывать окно подсказок после выбора подсказки
+let g:clang_close_preview=1
+" Чтобы открыть окно с расшифровкой ошибок нужно набрать :copen, закрыть :cclose
 " Также можно увидеть декларацию функции нажав Ctrl+]
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Python-mode settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" отключаем автокомплит по коду 
+" отключаем автокомплит по коду
 let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
 let g:pymode_rope_complete_on_dot = 0
@@ -333,7 +327,7 @@ let g:jedi#popup_select_first = 0   " disable first select from auto-complete
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim-go settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:go_fmt_command = 'goimports'  " Run goimports along gofmt on each save     
+let g:go_fmt_command = 'goimports'  " Run goimports along gofmt on each save
 let g:go_list_type = "quickfix"
 
 let g:go_auto_type_info = 1         " Automatically get signature/type info for object under cursor
@@ -348,7 +342,7 @@ let g:go_quickfix_height = 7
 " настройки Vim-Airline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2
-let g:airline_theme='wal'
+let g:airline_theme='xtheme'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
@@ -369,13 +363,15 @@ endfunction
 
 function! UnprintedToggle()
     if &list==1
+        hi! NonText ctermfg=0
         execute 'set nolist'
     else
+        hi! NonText ctermfg=196
         execute 'set list'
     endif
 endfunction
 
-" По нажатию Ctrl+F проверить поект на ошибки                                   
+" По нажатию Ctrl+F проверить поект на ошибки
 autocmd filetype c,cpp  map <C-F> :call g:ClangUpdateQuickFix()<CR>
 autocmd filetype go     map <C-F> :GoLint<CR>
 autocmd filetype python map <C-F> :PymodeLint<CR>
@@ -392,34 +388,41 @@ noremap  <F4> :TagbarToggle<CR>
 " Панель системного вывода (ошибки, консольный вывод...)
 map      <F5> <Plug>(qf_qf_toggle)
 " Панель Запланированных задач (TODO...)
-noremap  <F6> :TaskList<CR>     
+noremap  <F6> :TaskList<CR>
 " Переключение буферов - педыдущий
-noremap  <F7> :bp<CR>
-noremap  <S-Left> :bp<CR>
+noremap  <F7>          :bp<CR>
+inoremap <F7>     <ESC>:bp<CR>
+noremap  <S-Left>      :bp<CR>
+inoremap <S-Left> <ESC>:bp<CR>
 " Удалить текущий буффер
-noremap  <F8> :call g:DeleteCurrentBuffer()<CR>     
+noremap  <F8>          :call g:DeleteCurrentBuffer()<CR>
+inoremap <F8>     <ESC>:call g:DeleteCurrentBuffer()<CR>
 " Переключение буферов - следующий
-noremap  <F9>            :bn<CR>
-noremap  <S-Right>       :bn<CR>
+noremap  <F9>           :bn<CR>
+inoremap <F9>      <ESC>:bn<CR>
+noremap  <S-Right>      :bn<CR>
+inoremap <S-Right> <ESC>:bn<CR>
 
 " Показать/скрыть непечатные символы
-noremap  <F10>      :call g:UnprintedToggle()<CR>     
+noremap  <F10> :call g:UnprintedToggle()<CR>
 
 if has("clipboard")
     " CTRL-X are Cut
-    vnoremap <C-X>  "+x
+    vnoremap <C-X> "+x
     " CTRL-C are Copy
-    vnoremap <C-C>  "+y
+    vnoremap <C-C> "+y
     " CTRL-V are Paste
-    noremap  <C-V>  "+gP
-    inoremap <C-V>	<C-O>"+gP
+    noremap  <C-V>      "+gP
+    inoremap <C-V> <C-O>"+gP
 else
     " CTRL-X are Cut
-    vnoremap <C-X>  "yx <Bar> :call system('xclip -sel clip', @y)<CR>
+    vnoremap <C-X> "yx <Bar> :call system('xclip -sel clip', @y)<CR>
     " CTRL-C are Copy
-    vnoremap <C-C>  "yy <Bar> :call system('xclip -sel clip', @y)<CR>
+    vnoremap <C-C> "yy <Bar> :call system('xclip -sel clip', @y)<CR>
     " CTRL-V are Paste
-    noremap  <C-V>	:let @y=system('xclip -o -sel clip')<Bar> normal "ygP<CR>
-    inoremap <C-V>	<C-O>:let @y=system('xclip -o -sel clip')<Bar> normal "ygP<CR>
+    noremap  <C-V> :let @y=system('xclip -o -sel clip')<Bar> normal "ygP<CR>
+    inoremap <C-V> <C-O>:let @y=system('xclip -o -sel clip')<Bar> normal "ygP<CR>
 endif
 
+set listchars=tab:>-,nbsp:.,trail:.,extends:>,precedes:<,eol:$
+let &showbreak = '^'
