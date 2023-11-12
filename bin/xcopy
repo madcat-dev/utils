@@ -1,0 +1,119 @@
+#!/usr/bin/env bash
+
+DRY_RUN=
+ACTION=
+PREFIX="${PREFIX:-$HOME}"
+
+WELCOME='
+ ,""-    `/"+    ,=////*=,     .+*////^-`    ^""////*+.   `*"=     ^"^
+ .$@:`   =@@+   /@#*+~+/##^   +$@"=~~^&@;.  `!@$~~~+"@$=   !@&`   .$@:
+  -!@;-./@#=   ,@@*     -+-   !@!`    ~@@=  `!@!     ;@$`  -$@/` `:@&,
+   `^##$@",    ,@@^           !@!     -@@^  `!@!.``.=#@"    ,!@;=!@;,
+    -&@@@=     ,@@^           !@!     -@@^  `!@#:::;;"+      `/@@@^
+  `/@$^+!@;,   ,@@^      ``   &@!     -@@^  `!@!.```          `&@;
+ `;@&,  `"@$-  .&@!-```-;$/   /@#+.``,/@#~  `!@!              `&@;
+ ,&$+    .!$^   .*;!;:;!;^.   `+:!;::;!/-    "$"               :$"
+                                                   Lazy backup utilite
+Usage: xcopy [OPTIONS]
+
+Mandatory arguments to long options are mandatory for short options too
+    -b, --backup
+    -r, --restore
+    -d, --dry-run
+    --prefix
+    --help              display this help and exit
+'
+
+copy() {
+    local src=${1/\~/$HOME}
+    local dst=${2/\~/$HOME}
+
+    src=$(realpath "$src" 2>/dev/null)
+    dst=$(dirname  "$dst" 2>/dev/null)
+
+    if [[ ! "$src" ]]; then
+        echo -e "\033[31m[!] ${1/$HOME/\~} - not found!\033[0m" >&2
+        return 1
+    fi
+
+    if [[ ${DRY_RUN} ]]; then
+        echo "[.] ${src/$HOME/\~} >> ${dst/$HOME/\~}"
+        return 0
+    fi
+
+    mkdir -p "$dst" 2>/dev/null
+    cp -xarf "$src" "$dst" 2>/dev/null \
+        && echo -e "\033[32m[+] ${src/$HOME/\~} >> ${dst/$HOME/\~}\033[0m" >&2 \
+        || echo -e "\033[31m[-] ${src/$HOME/\~} >> ${dst/$HOME/\~}\033[0m" >&2
+}
+
+copy_from_list() {
+    local src= dst=
+    local STORAGE=$(basename "$1")
+    STORAGE="${STORAGE_DIR:-.}/${STORAGE%%.*}"
+
+    echo -e "\033[33m** ${ACTION} from ${@}, ${PREFIX/$HOME/\~} **\033[0m"
+
+    while IFS= read -r src; do
+        src="$(echo "$src" | sed -e 's/^[[:space:]]*//')"
+
+        [[ ! "$src" ]] && continue
+        [[ "${src:0:1}" == "#" ]] && continue
+
+        if [[ "${src:0:1}" == "[" ]]; then
+            echo -e "\033[34m$src\033[0m"
+            continue
+        fi
+
+        src=${src/\~/$HOME}
+        dst=$STORAGE/${src/$PREFIX/}
+        dst=${dst//\/\//\/}
+
+        if [[ "${ACTION}" == "backup" ]]; then
+            copy "$src" "$dst"
+        else
+            copy "$dst" "$src"
+        fi
+    done < "$1"
+    echo ""
+}
+
+while [ -n "$1" ]; do
+    case "${1}" in
+        --backup|-b)
+            ACTION="backup"
+            ;;
+        --restore|-r)
+            ACTION="restore"
+            ;;
+        --dry-run|-d)
+            DRY_RUN=True
+            ;;
+        --prefix)
+            PREFIX="${2}"
+            shift
+            ;;
+        --help)
+            echo -e "$WELCOME"
+            exit 0
+            ;;
+        *)
+            echo -e "\033[31;1mInvalid argument: ${1}\033[0m"
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+if [[ "${ACTION}" ]]; then
+    ls -l -b *.list | while read -a item; do
+        copy_from_list "${item[8]}"
+    done
+
+    [[ -e ".git" && ! "${DRY_RUN}" ]] \
+        && git status
+
+    exit 0
+fi
+
+echo -e "$WELCOME"
