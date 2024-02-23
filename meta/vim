@@ -7,7 +7,7 @@ echo -e "Remove previous configuration..."
 rm -rf $HOME/.vim/ > /dev/null 2>&1
 
 if ! which vim > /dev/null; then
-	echo -e "Install 'gvim' package..."
+	echo -e "Install 'vim' package..."
 	sudo pacman -S vim xclip --needed || exit 1
 fi
 
