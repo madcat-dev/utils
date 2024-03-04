@@ -100,7 +100,7 @@ PKGS_ALL=(
 
     # WM & dependencies
     "bspwm"                 # Tiling window manager based on binary space partitioning
-    "picom"                 # X compositor that may fix tearing issues
+    "xcompmgr"              # Composite Window-effects manager for X.org
     "sxhkd"                 # Simple X hotkey daemon
     "rofi"                  # A window switcher, run dialog and dmenu replacement
     "polybar"               # A fast and easy-to-use status bar
