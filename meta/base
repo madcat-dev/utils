@@ -100,11 +100,11 @@ PKGS_ALL=(
 
     # WM & dependencies
     "bspwm"                 # Tiling window manager based on binary space partitioning
-    "xcompmgr"              # Composite Window-effects manager for X.org
     "sxhkd"                 # Simple X hotkey daemon
     "rofi"                  # A window switcher, run dialog and dmenu replacement
     "polybar"               # A fast and easy-to-use status bar
     "dunst"                 # Customizable and lightweight notification-daemon
+    "picom"                 # A lightweight compositor for X11
 
     # Any dependencies
     "lib32-freetype2"       # Font rasterization library (32-bit), requered for wine32
