@@ -82,6 +82,7 @@ OPT_TO_INSTALL=(
     "kitty"                 # A modern, hackable, featureful, OpenGL-based terminal emulator
     "gparted"               # A Partition Magic clone, frontend to GNU Parted
     "gcolor3"               # Simple color chooser written in GTK
+    "cheese"                # Take photos and videos with your webcam, with fun graphical effects
 
     "docker"                # Pack, ship and run any application as a lightweight container
     "docker-compose"        # Fast, isolated development environments using Docker
