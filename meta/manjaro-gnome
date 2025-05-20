@@ -1,0 +1,130 @@
+#!/usr/bin/env bash
+
+APP_TO_REMOVE=(
+    "totem"                 # Movie player for the GNOME desktop based on GStreamer
+    "lollypop"              # Music player for GNOME
+)
+
+DEV_TO_INSTALL=(
+    # Development packages
+    "vim"                   # Vi Improved, a highly configurable, improved version of the vi text editor
+    "git"                   # The fast distributed version control system
+    "tig"                   # Text-mode interface for Git
+    "ctags"                 # Generates an index file of language objects found in source files
+    "python-pip"            # The PyPA recommended tool for installing Python packages
+    "python-pipenv"         # Sacred Marriage of Pipfile, Pip, & Virtualenv
+    "libpqxx"               # C++ client API for PostgreSQL
+    "go"                    # Core compiler tools for the Go programming language
+    "npm"                   # JavaScript package manager
+)
+
+APP_TO_INSTALL=(
+    # Fonts
+    "terminus-font"         # Monospace bitmap font (for X11 and console)
+    "ttf-font-awesome"      # Iconic font designed for Bootstrap
+
+    # X-console utils
+    "xclip"                 # Command line interface to the X11 clipboard
+    "numlockx"              # Turns on the numlock key in X11
+
+    # Console utils
+    "htop"                  # Interactive process viewer
+    "unrar"                 # The RAR uncompression program
+    "7zip"                  # File archiver for extremely high compression
+    "mc"                    # A file manager that emulates Norton Commander
+    "grc"                   # Yet another colouriser for beautifying your
+                            # logfiles or output of commands
+    "neofetch"              # A CLI system information tool written in BASH
+                            # that supports displaying images.
+    "trash-cli"             # Command line trashcan (recycle bin) interface
+    "imagemagick"           # An image viewing/manipulation program
+
+    # Network utils
+    "wget"                  # Network utility to retrieve files from the Web
+    "curl"                  # Command line tool and library for transferring data with URLs
+    "w3m"                   # Text-based Web browser as well as pager
+    "sshfs"                 # FUSE client based on the SSH File Transfer Protocol
+    "dnsutils"              # A complete, highly portable implementation of the DNS protocol
+    "nss-mdns"              # glibc plugin providing host name resolution via mDNS
+
+    "openresolv"            # resolv.conf management framework
+    "wireguard-tools"       # next generation secure network tunnel
+
+    # Applications
+    "telegram-desktop"      # Official Telegram Desktop client
+    "transmission-gtk"      # Fast, easy, and free BitTorrent client (GTK+ GUI)
+
+    # Media
+    "mpv"                   # Cross-platform media player
+    "pulsemixer"            # CLI and curses mixer for pulseaudio
+
+    # Desktop & integration
+    "gvfs"                  # Virtual filesystem implementation for GIO
+    "gvfs-afc"              # gvfs AFC backend; Apple mobile devices
+    "gvfs-dnssd"            # DNS-SD and WebDAV backend (macOS file sharing)
+    "gvfs-gphoto2"          # gvfs gphoto2 backend; PTP camera, MTP media player
+    "gvfs-mtp"              # gvfs MTP backend; Android, media player
+    "gvfs-smb"              # gvfs SMB/CIFS backend; Windows client
+
+    "gnome-shell-extension-dash-to-dock" # A dock for the GNOME Shell
+    "gnome-shell-extension-caffeine" # Extension for GNOME Shell to disable screensaver 
+                                     # and auto suspend
+
+    # Any dependencies
+    "lib32-freetype2"       # Font rasterization library (32-bit), requered for wine32
+    "webkit2gtk"            # Web content engine for GTK
+)
+
+OPT_TO_INSTALL=(
+    # Applications
+    "keepassxc"             # Cross-platform community-driven port of Keepass
+                            # password manager
+    "kitty"                 # A modern, hackable, featureful, OpenGL-based terminal emulator
+    "gparted"               # A Partition Magic clone, frontend to GNU Parted
+    "gcolor3"               # Simple color chooser written in GTK
+
+    "docker"                # Pack, ship and run any application as a lightweight container
+    "docker-compose"        # Fast, isolated development environments using Docker
+)
+
+echo -en "Remove preinstalled packages? [Y/n] "
+read select
+if [[ "${select:-Y}" =~ ^y|Y ]]; then
+    for pkg in ${APP_TO_REMOVE[*]}; do
+        sudo pacman -R $pkg
+    done
+fi
+
+echo -en "Install development packages? [Y/n] "
+read select
+if [[ "${select:-Y}" =~ ^y|Y ]]; then
+    sudo pacman -S base-devel --needed
+    sudo pacman -S ${DEV_TO_INSTALL[*]} --needed
+fi
+
+echo -en "Install app packages? [Y/n] "
+read select
+if [[ "${select:-Y}" =~ ^y|Y ]]; then
+    sudo pacman -S ${APP_TO_INSTALL[*]} --needed
+fi
+
+echo -en "Install optional app packages? [Y/n] "
+read select
+if [[ "${select:-Y}" =~ ^y|Y ]]; then
+    sudo pacman -S ${OPT_TO_INSTALL[*]} --needed
+fi
+
+echo -en "Install CUPS? [Y/n] "
+read select
+if [[ "${select:-Y}" =~ ^y|Y ]]; then
+    sudo pacman -S cups --needed
+    sudo systemctl enable --now cups.service
+    sudo systemctl status       cups.service
+fi
+
+echo -en "Enable services? [Y/n] "
+read select
+if [[ "${select:-Y}" =~ ^y|Y ]]; then
+    sudo systemctl enable --now avahi-daemon.service
+    sudo systemctl status       avahi-daemon.service
+fi

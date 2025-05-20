@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# 
+# List terminal settings of gnome
+# gsettings list-recursively | grep -i terminal
+
+gsettings set org.gnome.desktop.default-applications.terminal exec "${1:-kgx}"
+gsettings set com.github.stunkymonkey.nautilus-open-any-terminal terminal "${1:-kgx}"
