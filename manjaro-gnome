@@ -90,6 +90,7 @@ OPT_TO_INSTALL=(
     "docker-compose"        # Fast, isolated development environments using Docker
 )
 
+# remove 
 echo -en "Remove preinstalled packages? [Y/n] "
 read select
 if [[ "${select:-Y}" =~ ^y|Y ]]; then
@@ -98,6 +99,7 @@ if [[ "${select:-Y}" =~ ^y|Y ]]; then
     done
 fi
 
+# install base app packages
 echo -en "Install app packages? [Y/n] "
 read select
 if [[ "${select:-Y}" =~ ^y|Y ]]; then
@@ -113,12 +115,14 @@ if [[ "${select:-Y}" =~ ^y|Y ]]; then
     sudo systemctl status       avahi-daemon.service
 fi
 
+# install additional app packages
 echo -en "Install optional app packages? [Y/n] "
 read select
 if [[ "${select:-Y}" =~ ^y|Y ]]; then
     sudo pacman -S ${OPT_TO_INSTALL[*]} --needed
 fi
 
+# install development packages
 echo -en "Install development packages? [Y/n] "
 read select
 if [[ "${select:-Y}" =~ ^y|Y ]]; then
