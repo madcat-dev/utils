@@ -98,17 +98,19 @@ if [[ "${select:-Y}" =~ ^y|Y ]]; then
     done
 fi
 
-echo -en "Install development packages? [Y/n] "
-read select
-if [[ "${select:-Y}" =~ ^y|Y ]]; then
-    sudo pacman -S base-devel --needed
-    sudo pacman -S ${DEV_TO_INSTALL[*]} --needed
-fi
-
 echo -en "Install app packages? [Y/n] "
 read select
 if [[ "${select:-Y}" =~ ^y|Y ]]; then
     sudo pacman -S ${APP_TO_INSTALL[*]} --needed
+
+    # install & enable cups
+    sudo pacman -S cups --needed
+    sudo systemctl enable --now cups.service
+    sudo systemctl status       cups.service
+
+    # enable avahi
+    sudo systemctl enable --now avahi-daemon.service
+    sudo systemctl status       avahi-daemon.service
 fi
 
 echo -en "Install optional app packages? [Y/n] "
@@ -117,17 +119,9 @@ if [[ "${select:-Y}" =~ ^y|Y ]]; then
     sudo pacman -S ${OPT_TO_INSTALL[*]} --needed
 fi
 
-echo -en "Install CUPS? [Y/n] "
+echo -en "Install development packages? [Y/n] "
 read select
 if [[ "${select:-Y}" =~ ^y|Y ]]; then
-    sudo pacman -S cups --needed
-    sudo systemctl enable --now cups.service
-    sudo systemctl status       cups.service
-fi
-
-echo -en "Enable services? [Y/n] "
-read select
-if [[ "${select:-Y}" =~ ^y|Y ]]; then
-    sudo systemctl enable --now avahi-daemon.service
-    sudo systemctl status       avahi-daemon.service
+    sudo pacman -S base-devel --needed
+    sudo pacman -S ${DEV_TO_INSTALL[*]} --needed
 fi
