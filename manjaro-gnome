@@ -128,4 +128,9 @@ read select
 if [[ "${select:-Y}" =~ ^y|Y ]]; then
     sudo pacman -S base-devel --needed
     sudo pacman -S ${DEV_TO_INSTALL[*]} --needed
+
+    # install uv - fast Python package and project manager, written in Rust
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    # install ruff - fast Python linter and code formatter, written in Rust
+    which uv >/dev/null && uv tool install ruff@latest
 fi
