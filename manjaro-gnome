@@ -34,6 +34,8 @@ APP_TO_INSTALL=(
     "mc"                    # A file manager that emulates Norton Commander
     "grc"                   # Yet another colouriser for beautifying your
                             # logfiles or output of commands
+    "ripgrep"               # A search tool that combines the usability of ag with the raw 
+                            # speed of grep
     "neofetch"              # A CLI system information tool written in BASH
                             # that supports displaying images.
     "trash-cli"             # Command line trashcan (recycle bin) interface
@@ -81,7 +83,7 @@ OPT_TO_INSTALL=(
     # Applications
     "keepassxc"             # Cross-platform community-driven port of Keepass
                             # password manager
-    "kitty"                 # A modern, hackable, featureful, OpenGL-based terminal emulator
+    #"kitty"                 # A modern, hackable, featureful, OpenGL-based terminal emulator
     "gparted"               # A Partition Magic clone, frontend to GNU Parted
     "gcolor3"               # Simple color chooser written in GTK
     "cheese"                # Take photos and videos with your webcam, with fun graphical effects
