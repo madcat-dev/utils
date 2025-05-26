@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+MC_THEME="modarcon16-defbg"
+sed -i "s/^skin=.*$/skin=${MC_THEME}/g" ini

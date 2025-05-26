@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# 
 # List terminal settings of gnome
 # gsettings list-recursively | grep -i terminal
 # gsettings  list-schemas | egrep -i "desktop"
