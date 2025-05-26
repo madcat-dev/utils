@@ -68,7 +68,8 @@ APP_TO_INSTALL=(
     "gvfs-mtp"              # gvfs MTP backend; Android, media player
     "gvfs-smb"              # gvfs SMB/CIFS backend; Windows client
 
-    "gnome-shell-extension-dash-to-dock" # A dock for the GNOME Shell
+    "gnome-shell-extension-dash-to-dock"  # A dock for the GNOME Shell
+    "gnome-shell-extension-gnome-ui-tune" # Tunes GNOME Overview UI to make it more usable
     "gnome-shell-extension-caffeine" # Extension for GNOME Shell to disable screensaver 
                                      # and auto suspend
     "papirus-folders"       # Allows changing the color of folders in Papirus icon theme 
