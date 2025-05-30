@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+git clone https://github.com/mipmip/gnome-shell-extensions-useless-gaps.git \
+    /tmp/gnome-shell-extensions-useless-gaps
+
+cd /tmp/gnome-shell-extensions-useless-gaps
+
+./install.sh local-install
+
+cd ~
+rm -rf /tmp/gnome-shell-extensions-useless-gaps

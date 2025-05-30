@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+mkdir -p ~/.local/share/gnome-shell/extensions
+
+git clone https://github.com/floturcocantsee/GNOME_Run_With_Prime \
+    ~/.local/share/gnome-shell/extensions/gnome-run-with-prime
