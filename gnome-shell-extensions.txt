@@ -1,0 +1,7 @@
+- Rounded Window Corners Reborn. A GNOME extension that adds rounded
+corners to all windows
+https://github.com/flexagoon/rounded-window-corners
+
+- Useless Gaps. Useless Gaps is a GNOME Shell Extension which for
+aesthetic purposes, adds "useless gaps" around windows
+https://github.com/mipmip/gnome-shell-extensions-useless-gaps
