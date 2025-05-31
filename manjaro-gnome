@@ -91,6 +91,8 @@ OPT_TO_INSTALL=(
 
     "docker"                # Pack, ship and run any application as a lightweight container
     "docker-compose"        # Fast, isolated development environments using Docker
+
+    "remmina"               # Remote desktop client written in GTK+
 )
 
 # remove 
