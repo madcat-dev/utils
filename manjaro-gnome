@@ -85,14 +85,14 @@ OPT_TO_INSTALL=(
     "keepassxc"             # Cross-platform community-driven port of Keepass
                             # password manager
     "kitty"                 # A modern, hackable, featureful, OpenGL-based terminal emulator
+    "tmux"                  # Terminal multiplexer
+    "remmina"               # Remote desktop client written in GTK+
     "gparted"               # A Partition Magic clone, frontend to GNU Parted
     "gcolor3"               # Simple color chooser written in GTK
     "cheese"                # Take photos and videos with your webcam, with fun graphical effects
 
     "docker"                # Pack, ship and run any application as a lightweight container
     "docker-compose"        # Fast, isolated development environments using Docker
-
-    "remmina"               # Remote desktop client written in GTK+
 )
 
 # remove 
