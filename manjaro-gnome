@@ -34,7 +34,7 @@ APP_TO_INSTALL=(
     "mc"                    # A file manager that emulates Norton Commander
     "grc"                   # Yet another colouriser for beautifying your
                             # logfiles or output of commands
-    "ripgrep"               # A search tool that combines the usability of ag with the raw 
+    "ripgrep"               # A search tool that combines the usability of ag with the raw
                             # speed of grep
     "neofetch"              # A CLI system information tool written in BASH
                             # that supports displaying images.
@@ -70,11 +70,11 @@ APP_TO_INSTALL=(
 
     "gnome-shell-extension-dash-to-dock"  # A dock for the GNOME Shell
     "gnome-shell-extension-gnome-ui-tune" # Tunes GNOME Overview UI to make it more usable
-    "gnome-shell-extension-caffeine"      # Extension for GNOME Shell to disable screensaver 
+    "gnome-shell-extension-caffeine"      # Extension for GNOME Shell to disable screensaver
                                           # and auto suspend
-    "papirus-folders"       # Allows changing the color of folders in Papirus icon theme 
+    "papirus-folders"       # Allows changing the color of folders in Papirus icon theme
                             # and its forks
- 
+
     # Any dependencies
     "lib32-freetype2"       # Font rasterization library (32-bit), requered for wine32
     "webkit2gtk"            # Web content engine for GTK
@@ -95,7 +95,7 @@ OPT_TO_INSTALL=(
     "docker-compose"        # Fast, isolated development environments using Docker
 )
 
-# remove 
+# remove
 echo -en "Remove preinstalled packages? [Y/n] "
 read select
 if [[ "${select:-Y}" =~ ^y|Y ]]; then
