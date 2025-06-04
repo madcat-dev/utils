@@ -1,7 +1,12 @@
 - Rounded Window Corners Reborn. A GNOME extension that adds rounded
 corners to all windows
-https://github.com/flexagoon/rounded-window-corners
+https://extensions.gnome.org/extension/7048/rounded-window-corners-reborn/
 
 - Useless Gaps. Useless Gaps is a GNOME Shell Extension which for
 aesthetic purposes, adds "useless gaps" around windows
-https://github.com/mipmip/gnome-shell-extensions-useless-gaps
+https://extensions.gnome.org/extension/4684/useless-gaps/
+
+CoverflowAltTab is an Alt-Tab replacement available as an extension
+for Gnome-Shell. It lets you Alt-Tab through your windows in a
+cover-flow manner
+https://extensions.gnome.org/extension/97/coverflow-alt-tab/
