@@ -19,10 +19,6 @@ DEV_TO_INSTALL=(
 )
 
 APP_TO_INSTALL=(
-    # Fonts
-    "terminus-font"         # Monospace bitmap font (for X11 and console)
-    "ttf-font-awesome"      # Iconic font designed for Bootstrap
-
     # X-console utils
     "xclip"                 # Command line interface to the X11 clipboard
     "numlockx"              # Turns on the numlock key in X11
