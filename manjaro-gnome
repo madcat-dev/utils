@@ -32,7 +32,7 @@ APP_TO_INSTALL=(
                             # logfiles or output of commands
     "ripgrep"               # A search tool that combines the usability of ag with the raw
                             # speed of grep
-    "neofetch"              # A CLI system information tool written in BASH
+    "fastfetch"              # A CLI system information tool written in BASH
                             # that supports displaying images.
     "trash-cli"             # Command line trashcan (recycle bin) interface
     "imagemagick"           # An image viewing/manipulation program

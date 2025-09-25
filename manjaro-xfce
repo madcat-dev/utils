@@ -45,7 +45,7 @@ PKGS_ALL=(
     "grc"                   # Yet another colouriser for beautifying your
                             # logfiles or output of commands
     "rxvt-unicode"
-    "neofetch"              # A CLI system information tool written in BASH
+    "fastfetch"              # A CLI system information tool written in BASH
                             # that supports displaying images.
     "trash-cli"             # Command line trashcan (recycle bin) interface
     "imagemagick"           # An image viewing/manipulation program
