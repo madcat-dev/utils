@@ -42,7 +42,6 @@ APP_TO_INSTALL=(
     "curl"                  # Command line tool and library for transferring data with URLs
     "w3m"                   # Text-based Web browser as well as pager
     "sshfs"                 # FUSE client based on the SSH File Transfer Protocol
-    "dnsutils"              # A complete, highly portable implementation of the DNS protocol
     "nss-mdns"              # glibc plugin providing host name resolution via mDNS
 
     "openresolv"            # resolv.conf management framework
@@ -89,6 +88,9 @@ OPT_TO_INSTALL=(
 
     "docker"                # Pack, ship and run any application as a lightweight container
     "docker-compose"        # Fast, isolated development environments using Docker
+
+    "dnsutils"              # A complete, highly portable implementation of the DNS protocol
+    "net-tools"             # Configuration tools for Linux networking
 )
 
 # remove

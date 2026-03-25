@@ -2,11 +2,17 @@
 corners to all windows
 https://extensions.gnome.org/extension/7048/rounded-window-corners-reborn/
 
-- Useless Gaps. Useless Gaps is a GNOME Shell Extension which for
-aesthetic purposes, adds "useless gaps" around windows
-https://extensions.gnome.org/extension/4684/useless-gaps/
-
-CoverflowAltTab is an Alt-Tab replacement available as an extension
+- CoverflowAltTab is an Alt-Tab replacement available as an extension
 for Gnome-Shell. It lets you Alt-Tab through your windows in a
 cover-flow manner
 https://extensions.gnome.org/extension/97/coverflow-alt-tab/
+
+- Useless Gaps. Useless Gaps is a GNOME Shell Extension which for
+aesthetic purposes, adds "useless gaps" around windows
+https://extensions.gnome.org/extension/4684/useless-gaps/
+P.S. It's still broken as of gnome-shell 49.4 on Arch.
+
+- Smooth Gaps. A GNOME Shell extension that adds gaps around tiled and 
+maximized windows, with smooth animations. This is a fork of Useless 
+Gaps by Pim Snel, extended with animation support and ongoing maintenance.
+https://github.com/steeb-k/gnome-shell-extensions-smooth-gaps
