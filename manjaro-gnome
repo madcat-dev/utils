@@ -67,6 +67,9 @@ APP_TO_INSTALL=(
     "gnome-shell-extension-gnome-ui-tune" # Tunes GNOME Overview UI to make it more usable
     "gnome-shell-extension-caffeine"      # Extension for GNOME Shell to disable screensaver
                                           # and auto suspend
+    "gnome-shell-extension-papirus-folders-colorizer" # A GNOME shell extension that 
+                                          # automatically syncs your Papirus folder 
+                                          # icons with your GNOME Accent Color.
     "papirus-folders"       # Allows changing the color of folders in Papirus icon theme
                             # and its forks
 
