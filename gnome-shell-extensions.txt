@@ -16,3 +16,11 @@ P.S. It's still broken as of gnome-shell 49.4 on Arch.
 maximized windows, with smooth animations. This is a fork of Useless 
 Gaps by Pim Snel, extended with animation support and ongoing maintenance.
 https://github.com/steeb-k/gnome-shell-extensions-smooth-gaps
+
+
+MANUAL FIX (If Extension is Not Updated)
+1. Go to ~/.local/share/gnome-shell/extensions/
+2. Open the folder of the specific extension (e.g., useless-gaps@...).
+3. Edit the metadata.json file.
+4. Add "50" to the shell-version list: "shell-version": ["49", "50"].
+5. Restart GNOME Shell
